@@ -1,6 +1,6 @@
 {
   "name": "ed25519-keygen",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Generate an ed25519 key pair and write to disk",
   "preferGlobal": true,
   "bin": {
