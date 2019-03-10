@@ -1,0 +1,4 @@
+require[] = "@datkt/sodium"
+require[] = "@datkt/fs"
+require[] = "kargv"
+repo = "ed25519-keygen"
