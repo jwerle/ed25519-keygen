@@ -30,3 +30,4 @@ test/c/test
 node_modules/
 tape.klib
 *.klib
+ed25519-keygen

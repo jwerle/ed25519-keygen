@@ -4,12 +4,12 @@
   "description": "Generate an ed25519 key pair and write to disk",
   "preferGlobal": true,
   "bin": {
-    "ed25519-keygen": "ed25519-keygen.kexe"
+    "ed25519-keygen": "ed25519-keygen"
   },
   "scripts": {
+    "preinstall": "touch ed25519-keygen",
     "postinstall": "npm run build",
-    "build": "konanc main.kt $(konanc-config -lr .) -p program -o ed25519-keygen",
-    "test": "rm -f test.kexe && konanc test/ $(konanc-config -lr test.kc) -o test.kexe && ./test.kexe"
+    "build": "./build.sh"
   },
   "keywords": [
     "kotlin",
@@ -20,9 +20,9 @@
   "author": "Joseph Werle <joseph.werle@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@datkt/fs": "^0.1.6",
+    "@datkt/fs": "^0.1.7",
     "@datkt/sodium": "^0.6.0",
-    "@datkt/uv": "^0.5.4",
-    "kargv": "^0.1.1"
+    "kargv": "^0.1.1",
+    "konanc-config": "^5.x.x"
   }
 }
