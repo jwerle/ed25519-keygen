@@ -37,7 +37,7 @@ data class State(
 val options = Options()
 val state = State()
 
-val VERSION = "1.0.1"
+val VERSION = "1.0.2"
 val USAGE = "usage: ed25519-keygen [-hV] [options]"
 val OPTIONS = """
 options:
