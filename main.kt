@@ -171,7 +171,6 @@ suspend fun start() {
 
   if (null != seed) {
     try {
-      println("a")
       accessFile(seed)
       state.seed = readFile(seed)
     } catch (err: Error) {
