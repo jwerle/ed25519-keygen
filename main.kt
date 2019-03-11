@@ -16,12 +16,27 @@ data class KeyPair(
   val secretKey: ByteArray
 )
 
+val POSTFIX = "_ed25519"
+
+val VERSION = "1.0.2"
+val USAGE = "usage: ed25519-keygen [-hV] [options]"
+val OPTIONS = """
+options:
+  -h, --help           Show this message
+  -V, --version        Output program version
+  -o, --out <path>     Output file path
+  -s, --seed <seed>    Seed value or path to seed file
+  -f, --force          Force overwrites of files
+  --postfix <postfix>  A postfix for output file names. Set to 'false' to disable (default: $POSTFIX)
+"""
+
 data class Options(
   var help: Boolean = false,
   var version: Boolean = false,
   var force: Boolean = false,
-  var out: String? = "ed25519", // file.pub file.priv
+  var out: String? = "key", // priv=$out$POSTFIXpub=$out_ed25519.pub
   var seed: String? = null,
+  var postfix: String? = POSTFIX,
 
   // rest args
   var `--`: Array<String?> = emptyArray()
@@ -36,17 +51,6 @@ data class State(
 
 val options = Options()
 val state = State()
-
-val VERSION = "1.0.2"
-val USAGE = "usage: ed25519-keygen [-hV] [options]"
-val OPTIONS = """
-options:
-  -h, --help         Show this message
-  -V, --version      Output program version
-  -o, --out <path>   Output file path
-  -s, --seed <seed>  Seed value or path to seed file
-  -f, --force        Force overwrites of files
-"""
 
 fun keyPair(seed: ByteArray? = null): KeyPair {
   if (null != seed && seed.size < 32) {
@@ -84,15 +88,22 @@ fun parseCommandLineArguments(argv: Array<String>) {
         "h", "help" -> o.help = true
         "V", "version" -> o.version = true
         "f", "force" -> o.force = true
-        "s", "seed" -> o.seed = node.value
-        "o", "out" -> o.out = node.value
+        "s", "seed" -> o.seed = value
+        "o", "out" -> o.out = value
 
-      else ->
-        if (null != node.name) {
-          o.`--` += node.value
-        } else {
-          throw Error("unknown option: ${node.source}")
-        }
+        "postfix" ->
+          if (null != value && "false" == value) {
+            o.postfix = ""
+          } else if (null != value) {
+            o.postfix = value
+          }
+
+        else ->
+          if (null != node.name) {
+            o.`--` += value
+          } else {
+            throw Error("unknown option: ${node.source}")
+          }
       }
     }
   } catch (err: Error) {
@@ -165,8 +176,8 @@ suspend fun accessFile(path: String) {
 }
 
 suspend fun start() {
-  val publicKeyFile = "${options.out}_key.pub"
-  val secretKeyFile = "${options.out}_key"
+  val publicKeyFile = "${options.out}${options.postfix}.pub"
+  val secretKeyFile = "${options.out}${options.postfix}"
   val seed = options.seed
 
   if (null != seed) {
