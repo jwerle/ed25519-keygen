@@ -123,10 +123,10 @@ suspend fun writeFile(path: String, buffer: ByteArray) {
   return suspendCoroutine { cont ->
     datkt.fs.writeFile(path, buffer) { err ->
       if (null != err) {
-        throw err
+        cont.resumeWithException(err)
+      } else {
+        cont.resume(Unit)
       }
-
-      cont.resume(Unit)
     }
 
     datkt.fs.loop.run()
@@ -137,10 +137,10 @@ suspend fun readFile(path: String): ByteArray? {
   return suspendCoroutine { cont ->
     datkt.fs.readFile(path) { err, buf ->
       if (null != err) {
-        throw err
+        cont.resumeWithException(err)
+      } else {
+        cont.resume(buf)
       }
-
-      cont.resume(buf)
     }
 
     datkt.fs.loop.run()
@@ -151,10 +151,10 @@ suspend fun statFile(path: String): datkt.fs.Stats? {
   return suspendCoroutine { cont ->
     datkt.fs.stat(path) { err, stat ->
       if (null != err) {
-        throw err
+        cont.resumeWithException(err)
+      } else {
+        cont.resume(stat)
       }
-
-      cont.resume(stat)
     }
 
     datkt.fs.loop.run()
