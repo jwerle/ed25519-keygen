@@ -20,8 +20,8 @@
   "author": "Joseph Werle <joseph.werle@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@datkt/fs": "^0.1.8",
-    "@datkt/sodium": "^0.6.2",
+    "@datkt/fs": "^0.1.11",
+    "@datkt/sodium": "^0.6.6",
     "kargv": "^0.1.1",
     "konanc-config": "^5.x.x"
   }
