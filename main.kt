@@ -18,7 +18,7 @@ data class KeyPair(
 
 val POSTFIX = "_ed25519"
 
-val VERSION = "1.0.2"
+val VERSION = "1.1.0"
 val USAGE = "usage: ed25519-keygen [-hV] [options]"
 val OPTIONS = """
 options:
