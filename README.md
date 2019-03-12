@@ -6,7 +6,7 @@ Simple tool to generate ed25519 key pairs and write them to disk. Written in Kot
 ## Installation
 
 ```sh
-$ npm install -g ed25519-keygen
+$ npm install -g jwerle/ed25519-keygen
 ```
 
 ## Prerequisites
