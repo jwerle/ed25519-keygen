@@ -1,5 +1,5 @@
 {
-  "name": "ed25519-keygen",
+  "name": "@werle/ed25519-keygen",
   "version": "1.1.7",
   "description": "Generate an ed25519 key pair and write to disk",
   "preferGlobal": true,
