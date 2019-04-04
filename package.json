@@ -21,7 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "@datkt/fs": "^0.1.14",
-    "@datkt/sodium": "^0.7.0",
+    "@datkt/sodium": "^0.7.1",
     "kargv": "^0.1.1",
     "konanc-config": "^5.x.x"
   }
